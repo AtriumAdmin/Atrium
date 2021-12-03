@@ -4292,8 +4292,8 @@ AddCommand("notruesightguis", {"untruesightguis", "notsg"}, "removes truesight o
     return "truesight for guis are now off"
 end)
 
-AddCommand("esp", {"aimbot", "cameralock", "silentaim", "aimlock", "tracers"}, "loads atrium esp", {}, function(Caller, Args, CEnv)
-    CEnv.KillEsp = loadstring(game.HttpGet(game, "https://raw.githubusercontent.com/AtriumAdmin/atrium-esp/main/main.lua"))();
+AddCommand("esp", {"aimbot", "cameralock", "silentaim", "aimlock", "tracers"}, "loads fates esp", {}, function(Caller, Args, CEnv)
+    CEnv.KillEsp = loadstring(game.HttpGet(game, "https://raw.githubusercontent.com/fatesc/fates-esp/main/main.lua"))();
     return "esp enabled"
 end)
 
@@ -4308,7 +4308,7 @@ end)
 local EspLib;
 AddCommand("trace", {"locate"}, "traces a player", {"1"}, function(Caller, Args, CEnv)
     if (not EspLib) then
-        EspLib = loadstring(game.HttpGet(game, "https://raw.githubusercontent.com/AtriumAdmin/atrium-esp/main/load.lua"))();
+        EspLib = loadstring(game.HttpGet(game, "https://raw.githubusercontent.com/fatesc/fates-esp/main/esp-lib/esplibmain.lua"))();
     end
     local Target = GetPlayer(Args[1]);
     local New = EspLib.new
@@ -4331,7 +4331,7 @@ AddCommand("trace", {"locate"}, "traces a player", {"1"}, function(Caller, Args,
 end)
 AddCommand("untrace", {"unlocate"}, "untraces a player", {"1"}, function(Caller, Args)
     if (not EspLib) then
-        EspLib = loadstring(game.HttpGet(game, "https://raw.githubusercontent.com/AtriumAdmin/atrium-esp/main/load.lua"))();
+        EspLib = loadstring(game.HttpGet(game, "https://raw.githubusercontent.com/fatesc/fates-esp/main/esp-lib/esplibmain.lua"))();
     end
     local Target = GetPlayer(Args[1]);
     local Remove = EspLib.Remove
@@ -5268,7 +5268,7 @@ end)
 
 AddCommand("advertise", {}, "advertises the script", {}, function()
     local ChatRemote = Services.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest
-    ChatRemote.FireServer(ChatRemote, "I am using atrium admin, join the server UNXBMwMxHX", "All");
+    ChatRemote.FireServer(ChatRemote, "I am using atrium admin, join the server 5juCaNy76Z", "All");
 end)
 
 AddCommand("joinserver", {"discord"}, "joins the atrium admin discord server", {}, function()
@@ -5284,7 +5284,7 @@ AddCommand("joinserver", {"discord"}, "joins the atrium admin discord server", {
         Body = JSONEncode(HttpService, {
             cmd = "INVITE_BROWSER",
             args = {
-                code = "UNXBMwMxHX"
+                code = "5juCaNy76Z"
             },
             nonce = GenerateGUID(HttpService, false)
         }),
@@ -5338,7 +5338,7 @@ AddCommand("serverhop", {"sh"}, "switches servers (optional: min, max or mid)", 
 end)
 
 AddCommand("changelogs", {"cl"}, "shows you the updates on atrium admin", {}, function()
-    local ChangeLogs = JSONDecode(Services.HttpService, game.HttpGetAsync(game, "https://raw.githubusercontent.com/AtriumAdmin/Atrium/main/main.lua"));
+    local ChangeLogs = JSONDecode(Services.HttpService, game.HttpGetAsync(game, "https://raw.githubusercontent.com/AtriumAdmin/Atrium/main/huh.lua"));
     ChangeLogs = map(ChangeLogs, function(i, v)
         return {
             ["Author"] = v.commit.author.name,
@@ -5680,7 +5680,7 @@ end)
 
 AddCommand("freecam", {"fc"}, "enables/disables freecam", {}, function(Caller, Args, CEnv)
     if (not CEnv.Activated) then
-        -- roblox freecam modifed by sally
+        -- roblox freecam modifed by atrium
         local Spring = {}
         Spring.__index = Spring
         function Spring:Update(dt)
@@ -6432,7 +6432,7 @@ AddCommand("pathfind", {"follow2"}, "finds a user with pathfinding", {"1",3}, fu
     end
 end)
 
-AddCommand("console", {"errors", "warns", "outputs"}, "shows the outputs atrium admin has made", {}, function()atrium
+AddCommand("console", {"errors", "warns", "outputs"}, "shows the outputs atrium admin has made", {}, function()
     local MessageClone = Clone(Console.Frame.List);
     
     Utils.ClearAllObjects(Console.Frame.List)
@@ -6826,9 +6826,9 @@ end), Connections.UI, true);
 
 AddConnection(CConnect(ChatLogs.Save.MouseButton1Click, function()
     local GameName = Services.MarketplaceService.GetProductInfo(Services.MarketplaceService, game.PlaceId).Name
-    local String =  format("Atrium Admin Chatlogs for %s (%s)\n\n", GameName, os.date());
+    local String =  format("atrium Admin Chatlogs for %s (%s)\n\n", GameName, os.date());
     local TimeSaved = gsub(tostring(os.date("%x")), "/", "-") .. " " .. gsub(tostring(os.date("%X")), ":", "-");
-    local Name = format("Atrium-admin/chatlogs/%s (%s).txt", GameName, TimeSaved);
+    local Name = format("atrium-admin/chatlogs/%s (%s).txt", GameName, TimeSaved);
     local Children = GetChildren(ChatLogs.Frame.List);
     for i = 1, #Children do
         local v = Children[i]
@@ -7813,11 +7813,11 @@ do
                 Funcs[#Funcs + 1] = v
             end
         end
-        local FateEnv = getfenv(1);
+        local atriumEnv = getfenv(1);
         PluginLibrary.getfenv = newcclosure(function(...)
             local f = ({...})[1]
             local Env = getfenv(...);
-            if (type(f) == 'function' and Tfind(Funcs, f) or Env == FateEnv and checkcaller()) then
+            if (type(f) == 'function' and Tfind(Funcs, f) or Env == atriumEnv and checkcaller()) then
                 return PluginLibrary
             end
             return Env
