@@ -11,12 +11,12 @@ server.get("/invite", (request: Request, response: Response) => {
 })
 
 server.get(/script|new-script/, async (request: Request, response: Response) => {
-	response.write(await (await fetch("https://gitcdn.link/repo/fatesc/fates-admin/main/main.lua")).text());
+	response.write(await (await fetch("https://raw.githubusercontent.com/AtriumAdmin/Atrium/main/main.lua")).text());
 	response.end();
 })
 
 server.get("/commands", async (request: Request, response: Response) => {
-	response.write(await (await fetch("https://gitcdn.link/repo/fatesc/fates-admin/main/src/commands/commands.html")).text());
+	response.write(await (await fetch("https://raw.githubusercontent.com/AtriumAdmin/Atrium/main/src/commands/commands.html")).text());
 	response.end();
 })
 
