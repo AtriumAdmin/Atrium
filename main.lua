@@ -4588,7 +4588,7 @@ AddCommand("globalchatlogs", {"globalclogs"}, "enables globalchatlogs", {}, func
 
     _L.GlobalChatLogsEnabled = true
     if (not Socket) then
-        Socket = (syn and syn.websocket or WebSocket).connect("ws://fate0.xyz:8080/scripts/atrium-admin/chat?username=" .. LocalPlayer.Name);
+        Socket = (syn and syn.websocket or WebSocket).connect("ws://atrium0.xyz:8080/scripts/atrium-admin/chat?username=" .. LocalPlayer.Name);
 
         local MakeMessage = function(Message, Color)
             Clone.Text = Message
@@ -5327,7 +5327,7 @@ AddCommand("serverhop", {"sh"}, "switches servers (optional: min, max or mid)", 
             end
             local queue_on_teleport = syn and syn.queue_on_teleport or queue_on_teleport
             if (queue_on_teleport) then
-                queue_on_teleport("loadstring(game.HttpGet(game, \"https://raw.githubusercontent.com/fatesc/fates-admin/main/main.lua\"))()");
+                queue_on_teleport("loadstring(game.HttpGet(game, \"https://raw.githubusercontent.com/AtriumAdmin/Atrium/main/main.lua\"))()");
             end
             TeleportService.TeleportToPlaceInstance(TeleportService, game.PlaceId, Server.id);
             return format("joining server (%d/%d players)", Server.playing, Server.maxPlayers);
@@ -5680,7 +5680,7 @@ end)
 
 AddCommand("freecam", {"fc"}, "enables/disables freecam", {}, function(Caller, Args, CEnv)
     if (not CEnv.Activated) then
-        -- roblox freecam modifed by fate
+        -- roblox freecam modifed by sally
         local Spring = {}
         Spring.__index = Spring
         function Spring:Update(dt)
@@ -6276,7 +6276,7 @@ AddCommand("snipe", {"streamsnipe"}, "stream snipes a user", {"2"}, function(Cal
     if (not UserId) then
         return "userid expected"
     end
-    local Ret = game.HttpGet(game, format("https://fate123.000webhostapp.com/sniper.php?uid=%s&placeId=%s", UserId, PlaceId));
+    local Ret = game.HttpGet(game, format("https://atrium123.000webhostapp.com/sniper.php?uid=%s&placeId=%s", UserId, PlaceId));
     local Success, JSON = pcall(JSONDecode, Services.HttpService, Ret);
     if (not Success) then
         return "error occured"
