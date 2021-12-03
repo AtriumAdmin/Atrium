@@ -4,16 +4,16 @@
     "node_id": "C_kwDOFXljVdoAKGVkMTU5Y2E2ZDgwZGJjYzliYTFkOTNjZjg2MzYyYjZjN2NmMGEyZmQ",
     "commit": {
       "author": {
-        "name": "Atrium Admin",
+        "name": "Atrium",
         "email": "67711164+AtriumAdmin@users.noreply.github.com",
         "date": "2021-12-02T20:02:27Z"
       },
       "committer": {
-        "name": "Atrium Admin",
+        "name": "Atrium",
         "email": "67711164+AtriumAdmin@users.noreply.github.com",
         "date": "2021-12-02T20:02:27Z"
       },
-      "message": "Release!",
+      "message": "Release",
       "tree": {
         "sha": "a8b712459e7164a356dba52974d17229903463b8",
         "url": "https://api.github.com/repos/AtriumAdmin/AtriumAdmin-admin/git/trees/a8b712459e7164a356dba52974d17229903463b8"
