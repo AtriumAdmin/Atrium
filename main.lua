@@ -3269,7 +3269,7 @@ AddCommand("dupetools2", {"rejoindupe", "dupe2"}, "sometimes a faster dupetools"
             end
             delfile("atrium-admin/tooldupe.txt");
             delfile("atrium-admin/tooldupe.lua");
-            loadstring(game.HttpGet(game, "https://raw.githubusercontent.com/fatesc/fates-admin/main/main.lua"))();
+            loadstring(game.HttpGet(game, "https://raw.githubusercontent.com/AtriumAdmin/Atrium/main/main.lua"))();
             RootPart.CFrame = OldPos
             repeat wait() RootPart.CFrame = OldPos until RootPart.CFrame == OldPos
             getgenv().F_A.PluginLibrary.ExecuteCommand("dp", {"1"}, LocalPlayer);
@@ -4293,7 +4293,7 @@ AddCommand("notruesightguis", {"untruesightguis", "notsg"}, "removes truesight o
 end)
 
 AddCommand("esp", {"aimbot", "cameralock", "silentaim", "aimlock", "tracers"}, "loads atrium esp", {}, function(Caller, Args, CEnv)
-    CEnv.KillEsp = loadstring(game.HttpGet(game, "https://raw.githubusercontent.com/fatesc/fates-esp/main/main.lua"))();
+    CEnv.KillEsp = loadstring(game.HttpGet(game, "https://raw.githubusercontent.com/AtriumAdmin/atrium-esp/main/main.lua"))();
     return "esp enabled"
 end)
 
@@ -4308,7 +4308,7 @@ end)
 local EspLib;
 AddCommand("trace", {"locate"}, "traces a player", {"1"}, function(Caller, Args, CEnv)
     if (not EspLib) then
-        EspLib = loadstring(game.HttpGet(game, "https://raw.githubusercontent.com/fatesc/fates-esp/main/esp-lib/esplibmain.lua"))();
+        EspLib = loadstring(game.HttpGet(game, "https://raw.githubusercontent.com/AtriumAdmin/atrium-esp/main/load.lua"))();
     end
     local Target = GetPlayer(Args[1]);
     local New = EspLib.new
@@ -4331,7 +4331,7 @@ AddCommand("trace", {"locate"}, "traces a player", {"1"}, function(Caller, Args,
 end)
 AddCommand("untrace", {"unlocate"}, "untraces a player", {"1"}, function(Caller, Args)
     if (not EspLib) then
-        EspLib = loadstring(game.HttpGet(game, "https://raw.githubusercontent.com/fatesc/fates-esp/main/esp-lib/esplibmain.lua"))();
+        EspLib = loadstring(game.HttpGet(game, "https://raw.githubusercontent.com/AtriumAdmin/atrium-esp/main/load.lua"))();
     end
     local Target = GetPlayer(Args[1]);
     local Remove = EspLib.Remove
@@ -5338,7 +5338,7 @@ AddCommand("serverhop", {"sh"}, "switches servers (optional: min, max or mid)", 
 end)
 
 AddCommand("changelogs", {"cl"}, "shows you the updates on atrium admin", {}, function()
-    local ChangeLogs = JSONDecode(Services.HttpService, game.HttpGetAsync(game, "https://api.github.com/repos/fatesc/fates-admin/commits?per_page=100&path=main.lua"));
+    local ChangeLogs = JSONDecode(Services.HttpService, game.HttpGetAsync(game, "https://raw.githubusercontent.com/AtriumAdmin/Atrium/main/main.lua"));
     ChangeLogs = map(ChangeLogs, function(i, v)
         return {
             ["Author"] = v.commit.author.name,
@@ -5457,7 +5457,7 @@ end)
 AddCommand("reloadscript", {}, "kills the script and reloads it", {}, function(Caller)
     if (Caller == LocalPlayer) then
         ExecuteCommand("killscript", {}, LocalPlayer);
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/fatesc/fates-admin/main/main.lua"))();
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/AtriumAdmin/Atrium/main/main.lua"))();
     end
 end)
 
@@ -6232,7 +6232,7 @@ AddCommand("rejoinre", {"rje"}, "rejoins and tps you to your old position", {3},
     local Pos = GetRoot().CFrame
     local queue_on_teleport = syn and syn.queue_on_teleport or queue_on_teleport
     if (queue_on_teleport) then
-        queue_on_teleport(format("game.Loaded:Wait();game:GetService('ReplicatedFirst'):SetDefaultLoadingGuiRemoved();local LocalPlayer = game:GetService('Players').LocalPlayer;LocalPlayer.CharacterAdded:Wait():WaitForChild('HumanoidRootPart').CFrame = CFrame.new(%s);loadstring(game.HttpGet(game, \"https://raw.githubusercontent.com/fatesc/fates-admin/main/main.lua\"))()", tostring(Pos)));
+        queue_on_teleport(format("game.Loaded:Wait();game:GetService('ReplicatedFirst'):SetDefaultLoadingGuiRemoved();local LocalPlayer = game:GetService('Players').LocalPlayer;LocalPlayer.CharacterAdded:Wait():WaitForChild('HumanoidRootPart').CFrame = CFrame.new(%s);loadstring(game.HttpGet(game, \"https://raw.githubusercontent.com/AtriumAdmin/Atrium/main/main.lua\"))()", tostring(Pos)));
     end
     ExecuteCommand("rejoin", {}, LocalPlayer);
 end)
@@ -6826,9 +6826,9 @@ end), Connections.UI, true);
 
 AddConnection(CConnect(ChatLogs.Save.MouseButton1Click, function()
     local GameName = Services.MarketplaceService.GetProductInfo(Services.MarketplaceService, game.PlaceId).Name
-    local String =  format("Fates Admin Chatlogs for %s (%s)\n\n", GameName, os.date());
+    local String =  format("Atrium Admin Chatlogs for %s (%s)\n\n", GameName, os.date());
     local TimeSaved = gsub(tostring(os.date("%x")), "/", "-") .. " " .. gsub(tostring(os.date("%X")), ":", "-");
-    local Name = format("fates-admin/chatlogs/%s (%s).txt", GameName, TimeSaved);
+    local Name = format("Atrium-admin/chatlogs/%s (%s).txt", GameName, TimeSaved);
     local Children = GetChildren(ChatLogs.Frame.List);
     for i = 1, #Children do
         local v = Children[i]
@@ -7788,12 +7788,12 @@ PluginLibrary = {
 do
     local IsDebug = IsSupportedExploit and PluginConf.PluginDebug
     
-    Plugins = IsSupportedExploit and map(filter(listfiles("fates-admin/plugins"), function(i, v)
+    Plugins = IsSupportedExploit and map(filter(listfiles("atrium-admin/plugins"), function(i, v)
         return lower(split(v, ".")[#split(v, ".")]) == "lua"
     end), function(i, v)
         local splitted = split(v, "\\");
         if (identifyexecutor and identifyexecutor() == "ScriptWare") then
-            return {splitted[#splitted], loadfile("fates-admin/plugins/" .. v)}
+            return {splitted[#splitted], loadfile("atrium-admin/plugins/" .. v)}
         else
             return {splitted[#splitted], loadfile(v)}
         end
@@ -8339,6 +8339,6 @@ Utils.Notify(LocalPlayer, "Welcome", "'cmds' to see all of the commands, 'config
 if (debug.info(2, "f") == nil) then
 	Utils.Notify(LocalPlayer, "Outdated Script", "use the loadstring to get latest updates (https://github.com/AtriumAdmin)", 10);
 end
-_L.LatestCommit = JSONDecode(Services.HttpService, game.HttpGetAsync(game, "https://api.github.com/repos/fatesc/fates-admin/commits?per_page=1&path=main.lua"))[1]
+_L.LatestCommit = JSONDecode(Services.HttpService, game.HttpGetAsync(game, "https://raw.githubusercontent.com/AtriumAdmin/Atrium/main/main.lua"))[1]
 wait(1);
 Utils.Notify(LocalPlayer, "Newest Update", format("%s - %s", _L.LatestCommit.commit.message, _L.LatestCommit.commit.author.name));
